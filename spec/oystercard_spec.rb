@@ -1,5 +1,5 @@
 require 'oystercard'
 
-describe 'Oystercard' do
+describe Oystercard do
 
-end 
+end
