@@ -5,7 +5,7 @@ The Oystercard challenge is an activity which ask us to build more complex syste
 object-orientated design.
 
 
-##Weekly challenge user stories:
+#Weekly challenge user stories:
 
 Here are the user stories you will be working on for this project:
 
@@ -57,11 +57,11 @@ In order to be charged the correct amount
 As a customer
 I need to have the correct fare calculated
 
-##Sequence & Schedule
+#Sequence & Schedule
 Onsite
 Remote
 
-##Set up the project:
+#Set up the project:
 Create a Gemfile
 Create RSpec conventional files
 Review debugging basics
@@ -71,17 +71,17 @@ Add the balance
 Enable top up functionality
 Enforce maximum balance
 Deduct the money
-##Add touch in/out functionality:
+#Add touch in/out functionality:
 Add touch in/out support
 Checking mininum balance on touch in
 Charging for the journey
-##Record the journeys
+#Record the journeys
 Saving the entry station
 Adding journey history
 Creating the station class
-##Refactor to extract Journey class
+#Refactor to extract Journey class
 Handling a journey without a touch out
-##Refactoring: get the code into shape
+#Refactoring: get the code into shape
 Extracting the journey log out of the Oystercard
-##Make fares depends on zones
+#Make fares depends on zones
 Calculating the fare between zones
