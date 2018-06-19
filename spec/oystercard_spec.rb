@@ -7,6 +7,7 @@ it 'should have a balance' do
   expect(subject.balance).to eq 0
 end
 
+
 describe '#top_up' do
  it 'can be topped up' do
    oystercard = Oystercard.new
@@ -22,5 +23,12 @@ end
    subject.top_up(maximum_balance)
    expect {subject.top_up(1)}.to raise_error "Cannot exceed £90"
   end
+  end
+
+  describe 'deduct' do
+    it 'deducts an amout from the balance' do
+      subject.top_up(20)
+      expect{ subject.deduct 3}.to change{ subject.balance }.by -3
+    end
   end
 end
