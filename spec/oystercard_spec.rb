@@ -1,21 +1,22 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:oystercard) { Oystercard.new }
 
-it 'should have a balance' do
-  oystercard = Oystercard.new
-  expect(subject.balance).to eq 0
-end
+  it 'should have a balance' do
+    oystercard = Oystercard.new
+    expect(subject.balance).to eq 0
+  end
 
 
-describe '#top_up' do
- it 'can be topped up' do
-   oystercard = Oystercard.new
-   subject.top_up(10)
-   expect(subject.balance).to eq 10
-   #expect subject=oystercard's balance to equal to 10
- end
-end
+  describe '#top_up' do
+   it 'can be topped up' do
+     oystercard = Oystercard.new
+     subject.top_up(10)
+     expect(subject.balance).to eq 10
+     #expect subject=oystercard's balance to equal to 10
+   end
+  end
 
  describe "maximum_balance" do
    it 'cannot exceed (90)' do
@@ -39,16 +40,17 @@ end
   end
 
   describe "touch_in" do
-     it "changes card to active" do
-      subject.touch_in
-      expect(subject.status).to eq "active"
+     it "should not allow you to travel as balance is lower than minimum" do
+        low_top_up = (Oystercard::MINIMUM_TRAVEL_BALANCE) -1
+        oystercard.top_up(low_top_up)
+        expect(oystercard).to be_low_balance
+    end
   end
-end
 
   describe "touch_out" do
-  it "changes card to inactive" do
+    it "changes card to inactive" do
      subject.touch_out
      expect(subject.status).to eq "inactive"
+     end
    end
- end
 end

@@ -1,7 +1,8 @@
 class Oystercard
 
-attr_reader :balance ,:status
+attr_reader :balance ,:status, :station
 MAXIMUM_BALANCE = 90
+MINIMUM_TRAVEL_BALANCE = 1
 
 def initialize
   @balance = 0
@@ -22,11 +23,18 @@ def top_up(money)
     status == "active"
 end
 
-  def touch_in
-  @status = "active"
+  def touch_in(station)
+    fail "Not enough funds to travel" if low_balance?
+    @status = "active"
   end
 
   def touch_out
     @status = "inactive"
+
   end
-end
+
+  def low_balance?
+    @balance < MINIMUM_TRAVEL_BALANCE
+  end
+
+end 
