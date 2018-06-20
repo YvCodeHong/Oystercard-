@@ -33,6 +33,13 @@ describe Oystercard do
   end
 
   describe "touch_in" do
+     it "should record the entry station" do
+        subject.top_up(10)
+        subject.touch_in("entry_station")
+        expect(subject.entry_station).to eq "entry_station"
+      end
+
+
      it "should not allow you to travel as balance is lower than minimum" do
         low_top_up = (Oystercard::MINIMUM_CHARGE) -1
         oystercard.top_up(low_top_up)
@@ -41,16 +48,44 @@ describe Oystercard do
   end
 
   describe "touch_out" do
+    it 'should record the exit station' do
+      subject.top_up(10)
+      subject.touch_out("exit_station")
+      expect(subject.exit_station).to eq "exit_station"
+    end
+
+    it 'should forget the entry station, set nil' do
+     subject.top_up(10)
+     subject.touch_in("entry_station")
+     subject.touch_out("exit_station")
+     expect(subject.entry_station).to eq nil
+   end
+
+
     it 'should deduct minimum amount from balance' do
       subject.top_up(10)
-      subject.touch_in
-      subject.touch_out
+      subject.touch_in("entry_station")
+      subject.touch_out("exit_station")
       expect(subject.balance).to eq 9
+
     end
 
     it "changes card to inactive" do
-     subject.touch_out
+     subject.touch_out("exit_station")
      expect(subject.status).to eq "inactive"
      end
    end
+
+   describe "list of journeys" do
+     it 'should have an empty list of journeys by default' do
+     expect(subject.list_journeys).to be_empty
+    end
+
+    it 'should store a journey' do
+      subject.top_up(10)
+      subject.touch_in('entry_station')
+      subject.touch_out('exit_station')
+      expect(subject.list_journeys.size).to eq 1
+    end
+ end
 end
