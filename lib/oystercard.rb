@@ -2,7 +2,7 @@ class Oystercard
 
 attr_reader :balance ,:status, :station
 MAXIMUM_BALANCE = 90
-MINIMUM_TRAVEL_BALANCE = 1
+MINIMUM_CHARGE = 1
 
 def initialize
   @balance = 0
@@ -15,26 +15,29 @@ def top_up(money)
     return @balance
   end
 
-  def deduct(amount)
-  @balance -= amount
-  end
+
 
   def in_journey?
     status == "active"
 end
 
-  def touch_in(station)
+  def touch_in
     fail "Not enough funds to travel" if low_balance?
     @status = "active"
   end
 
   def touch_out
+     deduct(MINIMUM_CHARGE)
     @status = "inactive"
-
   end
 
   def low_balance?
-    @balance < MINIMUM_TRAVEL_BALANCE
+    @balance < MINIMUM_CHARGE
   end
 
-end 
+private
+
+  def deduct(amount)
+    @balance -= amount
+  end
+end
