@@ -1,11 +1,15 @@
 require 'station'
-#can we refactor the describe station- into one 'expect' sentence? 
+#can we refactor the describe station- into one 'expect' sentence?
 describe Station do
-  it 'should create an empty name' do
-    expect(subject.name).to eq nil
-  end
 
-  it 'should create an empty zone' do
-    expect(subject.zone).to eq nil
-  end
+let(:station) { Station.new(station_name: "Aldgate", zone:1)}
+
+it 'should know what nane of the station is' do
+  expect(station.station_name).to eq("Aldgate")
+end
+
+it 'should know what zone of the station is' do
+  expect(station.station_zone).to eq(1)
+end
+
 end
