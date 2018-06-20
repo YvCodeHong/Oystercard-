@@ -48,43 +48,49 @@ describe Oystercard do
   end
 
   describe "touch_out" do
+    let(:entry_station) { double :station }
+    let(:exit_station) {double :station }
+
     it 'should record the exit station' do
       subject.top_up(10)
-      subject.touch_out("exit_station")
-      expect(subject.exit_station).to eq "exit_station"
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq exit_station
     end
 
     it 'should forget the entry station, set nil' do
      subject.top_up(10)
-     subject.touch_in("entry_station")
-     subject.touch_out("exit_station")
+     subject.touch_in(entry_station)
+     subject.touch_out(exit_station)
      expect(subject.entry_station).to eq nil
    end
 
 
     it 'should deduct minimum amount from balance' do
       subject.top_up(10)
-      subject.touch_in("entry_station")
-      subject.touch_out("exit_station")
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject.balance).to eq 9
 
     end
 
     it "changes card to inactive" do
-     subject.touch_out("exit_station")
+     subject.touch_out(exit_station)
      expect(subject.status).to eq "inactive"
      end
    end
 
    describe "list of journeys" do
+     let(:entry_station) { double :station }
+     let(:exit_station) {double :station }
+     
      it 'should have an empty list of journeys by default' do
      expect(subject.list_journeys).to be_empty
     end
 
     it 'should store a journey' do
       subject.top_up(10)
-      subject.touch_in('entry_station')
-      subject.touch_out('exit_station')
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject.list_journeys.size).to eq 1
     end
  end
