@@ -82,6 +82,12 @@ describe Oystercard do
     end
    end
 
+   describe "#fare" do
+     it 'should return the minimum fare' do 
+     expect(subject.fare).to eq 1
+    end
+   end
+
    describe "list of journeys" do
      let(:entry_station) { double :station }
      let(:exit_station) {double :station }

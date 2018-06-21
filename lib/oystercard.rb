@@ -30,10 +30,14 @@ end
   end
 
   def touch_out(exit_station)
-    deduct(MINIMUM_CHARGE)
+    deduct(fare)
     @journey.exit_station = exit_station
     add_journey
     @journey = nil
+  end
+
+  def fare
+    MINIMUM_CHARGE
   end
 
   def low_balance?
