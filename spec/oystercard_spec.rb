@@ -82,7 +82,6 @@ describe Oystercard do
    describe "list of journeys" do
      let(:entry_station) { double :station }
      let(:exit_station) {double :station }
-     
      it 'should have an empty list of journeys by default' do
      expect(subject.list_journeys).to be_empty
     end
