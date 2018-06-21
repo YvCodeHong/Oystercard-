@@ -36,7 +36,7 @@ describe Oystercard do
      it "should record the entry station" do
         subject.top_up(10)
         subject.touch_in("entry_station")
-        expect(subject.entry_station).to eq "entry_station"
+        expect(subject.journey.entry_station).to eq "entry_station"
       end
 
 
@@ -53,8 +53,9 @@ describe Oystercard do
 
     it 'should record the exit station' do
       subject.top_up(10)
+      subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.exit_station).to eq exit_station
+      expect(subject.list_journeys[0][:exit_s]).to eq exit_station
     end
 
     it 'should forget the entry station, set nil' do
@@ -74,9 +75,11 @@ describe Oystercard do
     end
 
     it "changes card to inactive" do
-     subject.touch_out(exit_station)
-     expect(subject.status).to eq "inactive"
-     end
+    subject.top_up(10)
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
+    expect(subject.in_journey?).to eq false
+    end
    end
 
    describe "list of journeys" do
